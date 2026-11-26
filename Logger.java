@@ -7,7 +7,7 @@ public class Logger{
 
     private List<Log> logs = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
-
+    
     //A Logger needs to add Objects
     //Delete Objects
     //List all Objects
@@ -46,17 +46,17 @@ public class Logger{
 
         System.out.println("Select a log to remove");
 
-        int numberSelection = scanner.nextInt();
-        int maxValue = logs.size();
-
         try{
             while(true){
-                if (numberSelection < 0 || numberSelection > maxValue){
+                int numberSelection = scanner.nextInt();
+
+                if (numberSelection <= 0 || numberSelection > logs.size()){
                     System.out.println("Please select a number within range.");
-                    return;
+                    continue;
                 }
-                logs.remove(numberSelection);
+                logs.remove(numberSelection - 1);
                 System.out.println("Deleted log number: " + numberSelection);
+                return;
 
             }
         } catch (InputMismatchException e){
@@ -66,7 +66,7 @@ public class Logger{
 
     public void welcomeGreeting(){
         System.out.println("Welcome");
-        System.out.println("1. Add\n2. Delete\n3. Display");
+        System.out.println("1. Add\n2. Delete\n3. Display\n4. Menu\n5. Exit");
     }
     
     public void displayMenu(){
@@ -75,7 +75,7 @@ public class Logger{
                 
                 int selection = scanner.nextInt();
 
-                if (selection < 1 || selection > 3){
+                if (selection < 1 || selection > 5){
                     System.out.println("invalid input");
                     continue;
                 }
@@ -95,6 +95,12 @@ public class Logger{
                 } else if (selection == 3){
                     showLogs(logs);
                     continue;
+                } else if  (selection == 4){
+                    welcomeGreeting();
+                    continue;
+                } else {
+                    System.out.println("Exiting program...");
+                    System.exit(0);
                 }
             }
         } catch (InputMismatchException e){
@@ -102,6 +108,4 @@ public class Logger{
             }
 
         }
-        
-
-    }
+}
